@@ -1,20 +1,21 @@
 <template>
   <div>
-    <h1>User {{ $route.params.id }}</h1>
-    <pokemon-card :key="index" :pokemonId="$route.params.id" />
-    <router-link to="/">Go back</router-link>
+    <pokemon-detail 
+      @addToCart="addToCart"
+      :pokemonId="$route.params.id" 
+    />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import PokemonCard from "@/components/PokemonCard";
+import { mapState, mapActions } from "vuex";
+import PokemonDetail from "@/components/PokemonDetail";
 export default {
   components: {
-    PokemonCard
+    PokemonDetail
   },
-  computed: {
-    ...mapState(["stateCartPokemonList"])
-  }
+  methods: {
+    ...mapActions(["addToCart"])
+  },
 };
 </script>

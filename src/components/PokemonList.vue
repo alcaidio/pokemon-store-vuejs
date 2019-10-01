@@ -1,18 +1,19 @@
 <template>
-  <div class="pokemon-list">
-    <h2>Choose your Pokémon</h2>
-    <p v-for="(pokemon, index) in pokemonList" :key="pokemon.url">
-      N°{{ index + 1 }} -
-      <router-link :to="{ name: 'pokemon', params: { id: `${index+1}` }}">{{ pokemon.name }}</router-link>
-
-      <img
-        :key="pokemon.url"
-        :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`"
-        alt="Pokemon`"
-      />
-      <a class="nes-btn" @click="setProducts(pokemon.name)">Pick me!</a>
-    </p>
-  </div>
+    <div class="list">
+      <article
+        v-for="(pokemon, index) in pokemonList"
+        :key="'pokemon-'+index"
+        @click="goUrl(index+1)"
+      >
+        <img
+          :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`"
+          width="96"
+          height="96"
+          alt="Pokemon"
+        />
+        <h3>{{ pokemon.name }}</h3>
+      </article>
+    </div>
 </template>
 
 <script>
@@ -23,10 +24,6 @@ export default {
       type: Array,
       required: true
     },
-    products: {
-      type: Array,
-      required: true
-    }
   },
   computed: {
     productListLength() {
@@ -34,25 +31,34 @@ export default {
     }
   },
   methods: {
-    setProducts(name) {
-      if (this.products.includes(name)) {
-        const indexInArray = this.products.indexOf(name);
-        this.$emit("deleteFromCart", indexInArray);
-        return;
-      }
-
-      this.$emit("addToCart", name);
+    async goUrl(id) {
+      let route = await this.$router.push("/pokemon/" + id);
+      return route;
     }
   }
 };
 </script>
 
-<style scoped>
-.pokemon-list {
-  text-transform: capitalize;
-}
-.pokemon-list-item {
-  display: flex;
-  align-items: center;
+<style lang="scss" scoped>
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 10px;
+  width: 100%;
+  max-width: 510px;
+
+  article {
+    height: 150px;
+    background-color: #efefef;
+    text-align: center;
+    text-transform: capitalize;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
+
+    h3 {
+      margin: 0;
+    }
+  }
 }
 </style>

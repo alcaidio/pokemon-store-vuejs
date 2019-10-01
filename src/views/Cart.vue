@@ -5,9 +5,8 @@
       :pokemon-list="statePokemonDataList"
       :products="stateCartPokemonList"
       @addToCart="addToCart"
-      @eraseCartPokemonList="eraseCartPokemonList"
     />
-    <router-link to="/">Go back</router-link>
+    <button @click="goBack()">Go back</button>
   </div>
 </template>
 
@@ -22,7 +21,10 @@ export default {
     ...mapState(["statePokemonDataList", "stateCartPokemonList"])
   },
   methods: {
-    ...mapActions(["addToCart", "eraseCartPokemonList"])
+    ...mapActions(["addToCart"]),
+    goBack() {
+      return this.$router.go(-1);
+    }
   }
 };
 </script>

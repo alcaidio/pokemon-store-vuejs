@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     statePokemonDataList: [],
-    stateCartPokemonList: []
+    stateCartPokemonList: [], 
+    stateTotal: 0,
   },
   actions: {
     setPokemonData(context, payload) {
@@ -17,13 +18,19 @@ export default new Vuex.Store({
     },
     addToCart(context, payload) {
       context.commit("addToCart", payload);
+      context.commit("getTotal");
     },
-    deleteFromCArt(context, payload) {
-      context.commit("deleteFromCArt", payload);
+    removeOneFromCart(context, payload) {
+      context.commit("removeOneFromCart", payload);
+      context.commit("getTotal");
     },
-    eraseFavoritePokemonList(context) {
-      context.commit("eraseFavoritePokemonList");
-    }
+    removeFromCart(context, payload) {
+      context.commit("removeFromCart", payload);
+      context.commit("getTotal");
+    },
+    getTotal(context) {
+      context.commit("getTotal");
+    },
   },
   mutations: {
     setPokemonData(state, list) {
@@ -32,14 +39,29 @@ export default new Vuex.Store({
     setCartPokemonList(state, list) {
       state.stateCartPokemonList = list;
     },
-    addToCart(state, name) {
-      state.stateCartPokemonList.push(name);
+    addToCart(state, item) {
+      const currentItems = [...state.stateCartPokemonList];
+      const findItem = currentItems.find(data => data.name === item.name);
+      if (findItem) {
+        findItem.quantity += 1;
+      } else {
+        state.stateCartPokemonList.push(item);
+      }   
     },
-    deleteFromCArt(state, item) {
-      state.stateCartPokemonList.splice(item, 1);
+    removeOneFromCart(state, item) {
+      let currentItems = [...state.stateCartPokemonList];
+      if (item.quantity > 1) {
+        item.quantity -= 1;
+      } else {
+        state.stateCartPokemonList.splice(item, 1);
+      }
     },
-    eraseFavoritePokemonList(state) {
-      state.stateCartPokemonList = [];
+    removeFromCart(state, item){
+      if(item.quantity > 0) state.stateCartPokemonList.splice(item, 1);
+    },
+    getTotal(state) {
+      const total = Object.values(state.stateCartPokemonList).reduce((t, {price, quantity}) => t + price * quantity, 0)
+      state.stateTotal = total;
     }
   }
-});
+}); 

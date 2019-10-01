@@ -1,32 +1,40 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/shop">Shop</router-link> | 
-      <router-link to="/cart">Cart</router-link> |
-      <router-link to="/pokemon/1">pokemon 1</router-link> |
-    </div>
-    <router-view />
+    <app-navbar />
+    <router-view class="container" />
   </div>
 </template>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
+<script>
+import Navbar from "@/components/Navbar";
+export default {
+  components: {
+    appNavbar: Navbar
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://use.fontawesome.com/releases/v5.8.2/css/all.css");
+
+.container {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  width: calc(100% - 20px);
+  min-height: calc(100vh - 20px);
+  background: radial-gradient(#ffeead, #ff8838);
+
+  font-family: "Roboto", arial;
+  font-size: 1rem;
+  font-weight: normal;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+h1 {
+  color: #efefef;
 }
 </style>
