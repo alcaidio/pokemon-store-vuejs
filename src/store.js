@@ -6,8 +6,19 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     statePokemonDataList: [],
-    stateCartPokemonList: [], 
+    stateCartPokemonList: [],
     stateTotal: 0,
+  },
+  getters: {
+    pokemons: state => {
+      return state.statePokemonDataList
+    }, 
+    minus5: state => {
+      return state.statePokemonDataList.filter(pokemon => pokemon.price < 5)
+    }, 
+    getPokemonByName: (state) => (name) => {
+      return state.statePokemonDataList.find(pokemon => pokemon.name === name)
+    }
   },
   actions: {
     setPokemonData(context, payload) {
@@ -46,7 +57,7 @@ export default new Vuex.Store({
         findItem.quantity += 1;
       } else {
         state.stateCartPokemonList.push(item);
-      }   
+      }
     },
     removeOneFromCart(state, item) {
       let currentItems = [...state.stateCartPokemonList];
@@ -56,11 +67,11 @@ export default new Vuex.Store({
         state.stateCartPokemonList.splice(item, 1);
       }
     },
-    removeFromCart(state, item){
-      if(item.quantity > 0) state.stateCartPokemonList.splice(item, 1);
+    removeFromCart(state, item) {
+      if (item.quantity > 0) state.stateCartPokemonList.splice(item, 1);
     },
     getTotal(state) {
-      const total = Object.values(state.stateCartPokemonList).reduce((t, {price, quantity}) => t + price * quantity, 0)
+      const total = Object.values(state.stateCartPokemonList).reduce((t, { price, quantity }) => t + price * quantity, 0)
       state.stateTotal = total;
     }
   }

@@ -227,6 +227,9 @@ export default {
       &.add {
         background-color: green;
       }
+      &:hover{
+        opacity: 0.6;
+      }
     }
   }
 

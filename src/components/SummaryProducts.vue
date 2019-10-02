@@ -1,5 +1,6 @@
 <template>
-  <div class="shopping-cart up">
+<div>
+  <div class="shopping-cart up" v-if="products.length > 0" >
     <div class="item" v-for="(item, index) in products" :key="index">
       <div class="buttons">
         <span @click="removeFromCart(item)" class="delete-btn"></span>
@@ -22,6 +23,11 @@
       </div>
     </div>
   </div>
+  <div class="shopping-cart up" v-else>
+    Your cart is empty :(
+  </div>
+</div>
+
 </template>
 
 <script>

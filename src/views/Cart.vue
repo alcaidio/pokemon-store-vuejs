@@ -18,12 +18,12 @@ export default {
     SummaryProducts
   },
   computed: {
-    ...mapState(["statePokemonDataList", "stateCartPokemonList"])
+    ...mapState(["statePokemonDataList", "stateCartPokemonList"]),
   },
   methods: {
     ...mapActions(["addToCart"]),
     goBack() {
-      return this.$router.go(-1);
+      return this.$router.go('/shop');
     }
   }
 };
