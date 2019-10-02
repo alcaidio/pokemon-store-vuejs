@@ -6,7 +6,6 @@
       :products="stateCartPokemonList"
       @addToCart="addToCart"
     />
-    <button @click="goBack()">Go back</button>
   </div>
 </template>
 
@@ -22,9 +21,6 @@ export default {
   },
   methods: {
     ...mapActions(["addToCart"]),
-    goBack() {
-      return this.$router.go('/shop');
-    }
   }
 };
 </script>
