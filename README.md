@@ -1,29 +1,23 @@
-# pokemon-store-vuejs
+## Getting Started
+Go on your project folder
+```bash
+$ git clone https://github.com/oncletim/pokemon-store-vuejs.git
+$ cd pokemon-store-vuejs
+$ yarn install 
+$ yarn server
+```
+Go to http://localhost:8080/
 
-## Project setup
-```
-yarn install
-```
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+## Built With
+- Vue js
+- VueX (state management)
+- Vue Router 
 
-### Run your tests
-```
-yarn run test
-```
+## Authors
+Timothy ALCAIDE @oncletim
 
-### Lints and fixes files
-```
-yarn run lint
-```
+## License
+This project is licensed under the MIT License
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
